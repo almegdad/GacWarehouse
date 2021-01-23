@@ -1,5 +1,6 @@
 ﻿using GacWarehouse.Core.Entities;
 using GacWarehouse.Core.Interfaces.Services;
+using GacWarehouse.Core.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +42,7 @@ namespace GacWarehouse.API.Helpers
             if (!Request.Headers.ContainsKey("Authorization"))
                 return AuthenticateResult.Fail("Missing Authorization Header");
 
-            Customer user = null;
+            ProfileResponse user = null;
             try
             {
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
@@ -49,7 +50,13 @@ namespace GacWarehouse.API.Helpers
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
                 var password = credentials[1];
-                user = await _customerService.Authenticate(username, password);
+
+                var loginRequest = new LoginRequest { Username = username, Password = password };
+                var loginResponse = await _customerService.Login(loginRequest);
+                if (loginResponse.Success)
+                {
+                    user = loginResponse.Data;
+                }
             }
             catch
             {
@@ -60,7 +67,7 @@ namespace GacWarehouse.API.Helpers
                 return AuthenticateResult.Fail("Invalid Username or Password");
 
             var claims = new[] {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                //new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
             };
             var identity = new ClaimsIdentity(claims, Scheme.Name);

@@ -1,4 +1,5 @@
 ﻿using GacWarehouse.Core.Entities;
+using GacWarehouse.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace GacWarehouse.Core.Interfaces.Services
 {
     public interface ICustomerService
     {
-        Task<Customer> Authenticate(string username, string password);
-        Task<IEnumerable<Customer>> GetAll();
+        Task<GeneralResponse<LoginResponse>> Login(LoginRequest loginRequest);
+        Task<GeneralResponse<ProfileResponse>> GetProfile(string username);
     }
 }

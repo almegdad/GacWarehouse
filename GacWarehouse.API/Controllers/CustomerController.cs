@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GacWarehouse.Core.Interfaces.Services;
 using GacWarehouse.API.Models;
+using GacWarehouse.Core.Models;
 
 namespace GacWarehouse.API.Controllers
 {
@@ -21,25 +22,29 @@ namespace GacWarehouse.API.Controllers
         {
             _customerService = customerService;
         }
-
+        
         [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateModel model)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var user = await _customerService.Authenticate(model.Username, model.Password);
+            var response = await _customerService.Login(request);
 
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+            if (!response.Success)
+                return BadRequest(response);
 
-            return Ok(user);
+            return Ok(response);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("Profile")]
+        public async Task<IActionResult> Profile()
         {
-            var users = await _customerService.GetAll();
-            
-            return Ok(users);
+            var username = User?.Identity?.Name;
+            var response = await _customerService.GetProfile(username);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
     }
 }
