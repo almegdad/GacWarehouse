@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GacWarehouse.Core\GacWarehouse.Core.csproj" />
+    <ProjectReference Include="..\GacWarehouse.Data\GacWarehouse.Data.csproj" />
+  </ItemGroup>
+
+</Project>
