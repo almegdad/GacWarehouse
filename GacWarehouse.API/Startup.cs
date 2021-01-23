@@ -1,4 +1,8 @@
+using GacWarehouse.API.Helpers;
+using GacWarehouse.Core.Interfaces.Services;
 using GacWarehouse.Data.Database;
+using GacWarehouse.Service.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +31,17 @@ namespace GacWarehouse.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();//
             services.AddControllers();
 
             services.AddDbContext<GacWarehouseDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GacWarehouseDbConnection")));
+
+            // configure basic authentication 
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
+            // configure DI for application services
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +56,13 @@ namespace GacWarehouse.API
 
             app.UseRouting();
 
+            //global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());//
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
