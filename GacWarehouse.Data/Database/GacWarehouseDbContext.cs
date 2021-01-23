@@ -35,6 +35,22 @@ namespace GacWarehouse.Data.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Customer>()
+                        .HasIndex(b => b.Username)
+                        .IsUnique();
+
+            modelBuilder.Entity<Manufacturer>()
+                        .HasIndex(b => b.Code)
+                        .IsUnique();
+
+            modelBuilder.Entity<Product>()
+                        .HasIndex(b => b.Code)
+                        .IsUnique();
+
+            modelBuilder.Entity<SalesOrderDetails>()
+                        .HasIndex(b => new { b.OrderId, b.ProductId })
+                        .IsUnique();
+
             OnModelCreatingPartial(modelBuilder);
         }
 
