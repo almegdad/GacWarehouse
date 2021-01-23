@@ -60,5 +60,12 @@ namespace GacWarehouse.Data.Repositories
         {
             return _db.Products.SingleOrDefault(a => a.Id == id);
         }
+
+        public SalesOrder GetOrderDetails(int orderId, int customerId)
+        {
+            return _db.SalesOrders.Include(i => i.SalesOrderDetails)
+                                  .ThenInclude(it => it.Product)
+                                  .SingleOrDefault(a => a.Id == orderId && a.CustomerId == customerId);
+        }
     }
 }

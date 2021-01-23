@@ -37,5 +37,19 @@ namespace GacWarehouse.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("GetOrderDetails")]
+        public async Task<IActionResult> GetOrderDetails(int orderId)
+        {
+            var customerId = 0;
+            int.TryParse(User?.Claims?.SingleOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value, out customerId);
+
+            var response = await _orderService.GetOrderDetails(orderId, customerId);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

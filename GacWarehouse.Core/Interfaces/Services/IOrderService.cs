@@ -9,5 +9,6 @@ namespace GacWarehouse.Core.Interfaces.Services
     public interface IOrderService
     {
         Task<GeneralResponse<OrderResponse>> CreateNewOrder(OrderRequest request);
+        Task<GeneralResponse<OrderResponse>> GetOrderDetails(int orderId, int customerId);
     }
 }

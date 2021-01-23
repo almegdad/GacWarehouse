@@ -74,5 +74,46 @@ namespace GacWarehouse.Service.Services
 
             return respnose;
         }
+
+        public async Task<GeneralResponse<OrderResponse>> GetOrderDetails(int orderId, int customerId)
+        {
+            var respnose = new GeneralResponse<OrderResponse>();
+
+            var isValid = orderId > 0 && customerId > 0;
+            if (!isValid)
+            {
+                respnose.Message = "Validaton Error";
+                return respnose;
+            }
+
+            var order = _orderRepository.GetOrderDetails(orderId, customerId);
+
+            if (order == null)
+            {
+                respnose.Message = "Not Found";
+                return respnose;
+            }
+
+            var orderResponse = new OrderResponse
+            {
+                OrderId = order.Id,
+                OrderStatus = order.OrderStatus,
+                OrderCreateDate = order.OrderCreateDate,
+                OrderDetailsList = order.SalesOrderDetails.Select(a => new OrderDetailsResponse
+                {
+                    ProductId = a.Product.Id,
+                    ProductName = a.Product.Name,
+                    Quantity = a.Quantity
+                }).ToList()
+            };
+
+            respnose = new GeneralResponse<OrderResponse>()
+            {
+                Success = true,
+                Data = orderResponse
+            };
+
+            return respnose;
+        }
     }
 }
