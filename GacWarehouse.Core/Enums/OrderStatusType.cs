@@ -7,7 +7,6 @@ namespace GacWarehouse.Core.Enums
     public enum OrderStatusType
     {
         New = 0,
-        Completed = 1,
-        Rejected = 2
+        Shipped = 1,
     } 
 }

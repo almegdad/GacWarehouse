@@ -23,7 +23,7 @@ namespace GacWarehouse.Service.Services
         public async Task<GeneralResponse<LoginResponse>> Login(LoginRequest loginRequest)
         {
             var respnose = new GeneralResponse<LoginResponse>();
-            
+
             if (string.IsNullOrWhiteSpace(loginRequest.Username) || string.IsNullOrWhiteSpace(loginRequest.Password))
             {
                 respnose.Message = "Validaton Error";
@@ -49,7 +49,7 @@ namespace GacWarehouse.Service.Services
             respnose = new GeneralResponse<LoginResponse>()
             {
                 Success = true,
-                Data = new LoginResponse { Username = customer.Username, FirstName = customer.FirstName, LastName = customer.LastName }
+                Data = new LoginResponse { UserId = customer.Id, Username = customer.Username, FirstName = customer.FirstName, LastName = customer.LastName }
             };
 
             return respnose;
@@ -76,10 +76,10 @@ namespace GacWarehouse.Service.Services
             respnose = new GeneralResponse<ProfileResponse>()
             {
                 Success = true,
-                Data = new ProfileResponse { Username = customer.Username, FirstName = customer.FirstName, LastName = customer.LastName }
+                Data = new ProfileResponse { UserId = customer.Id, Username = customer.Username, FirstName = customer.FirstName, LastName = customer.LastName }
             };
 
             return respnose;
-        }        
+        }
     }
 }
