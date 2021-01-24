@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GacWarehouse.Data", "GacWar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GacWarehouse.Service", "GacWarehouse.Service\GacWarehouse.Service.csproj", "{B2F4CCA8-0A07-4128-9501-63988C072792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GacWarehouse.UnitTests", "GacWarehouse.UnitTests\GacWarehouse.UnitTests.csproj", "{ED80EFC7-2F1D-417B-930F-86B0B2B7DFC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GacWarehouse.UnitTests", "GacWarehouse.UnitTests\GacWarehouse.UnitTests.csproj", "{ED80EFC7-2F1D-417B-930F-86B0B2B7DFC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GacWarehouse.TaskScheduler", "GacWarehouse.TaskScheduler\GacWarehouse.TaskScheduler.csproj", "{3C9322B3-ECD1-4E0E-B8B6-C536F46482E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{ED80EFC7-2F1D-417B-930F-86B0B2B7DFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED80EFC7-2F1D-417B-930F-86B0B2B7DFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED80EFC7-2F1D-417B-930F-86B0B2B7DFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9322B3-ECD1-4E0E-B8B6-C536F46482E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9322B3-ECD1-4E0E-B8B6-C536F46482E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9322B3-ECD1-4E0E-B8B6-C536F46482E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9322B3-ECD1-4E0E-B8B6-C536F46482E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

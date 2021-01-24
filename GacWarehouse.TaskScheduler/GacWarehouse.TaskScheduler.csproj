@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\Debug\**" />
+    <EmbeddedResource Remove="bin\Debug\**" />
+    <None Remove="bin\Debug\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Data\Orders\24012021\New_99970660880861363_5a7001f6-273c-4598-9d73-efd3611f02d6.xml" />
+    <Content Include="bin\Data\Orders\24012021\Processed_637470660880861363_5a7001f6-273c-4598-9d73-efd3611f02d6.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Quartz" Version="3.2.4" />
+  </ItemGroup>
+
+</Project>
