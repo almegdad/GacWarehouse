@@ -15,7 +15,7 @@ namespace GacWarehouse.UnitTests.Services
     {
         [Fact]
         public void CreateNewOrder_ResultDataShouldNotBeNull()
-        {            
+        {
             //use context with data to run test
             using (var context = SetupAndGetInMemoryDbContext())
             {
@@ -52,15 +52,15 @@ namespace GacWarehouse.UnitTests.Services
 
         [Fact]
         public void CreateNewOrder_OrderQuantityShouldBeSubtractedFromProductTotalQuantity()
-        {            
+        {
             //use context with data to run test
             using (var context = SetupAndGetInMemoryDbContext())
             {
                 //Arrange
                 var repository = new OrderRepository(context);
                 var service = new OrderService(repository);
-                
-                
+
+
                 var firstProductOrderDetail = new OrderDetailsRequest
                 {
                     ProductId = 1,
@@ -85,14 +85,14 @@ namespace GacWarehouse.UnitTests.Services
                 //Act
 
                 //quantities before order
-                var firstProductOriginalQuantity = repository.GetProductById(1).Quantity;
-                var secondProductOriginalQuantity = repository.GetProductById(2).Quantity;
+                var firstProductOriginalQuantity = context.Products.Find(1).Quantity;
+                var secondProductOriginalQuantity = context.Products.Find(2).Quantity;
 
                 var response = service.CreateNewOrder(request).Result;
 
                 //quantities after order
-                var firstProductCurrentQuantity = repository.GetProductById(1).Quantity;
-                var secondProductCurrentQuantity = repository.GetProductById(2).Quantity;
+                var firstProductCurrentQuantity = context.Products.Find(1).Quantity;
+                var secondProductCurrentQuantity = context.Products.Find(2).Quantity;
 
                 //Assert
                 Assert.True(response.Success);
