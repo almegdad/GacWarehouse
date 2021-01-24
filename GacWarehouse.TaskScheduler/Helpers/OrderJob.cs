@@ -21,10 +21,11 @@ namespace GacWarehouse.TaskScheduler.Helpers
 
         public async Task Execute(IJobExecutionContext context)
         {
-            await Console.Out.WriteLineAsync("Order Job Started!");
+            await Console.Out.WriteLineAsync("Order Job Started!");            
 
             try
             {
+                //file name pattern : [Status]_[Timestamp]_[Guid] , ex: New_99970660880861363_5a7001f6-273c-4598-9d73-efd3611f02d6.xml
                 var folderPath = Path.GetFullPath(@$"../../Data/Orders/{DateTime.Now.ToString("ddMMyyyy")}");
                 foreach (string filePath in Directory.EnumerateFiles(folderPath, "*.xml"))
                 {
@@ -43,7 +44,7 @@ namespace GacWarehouse.TaskScheduler.Helpers
                         var orderResponse = await _orderApi.PostAPI<OrderResponse, OrderRequest>(url, orderRequest);
                         if (orderResponse.Success)
                         {
-                            //rename the file
+                            //rename the file to mark as processed
                             var newFileName = fileName.Replace("New", "Processed");
                             var newFileNamePath = @$"{Path.GetDirectoryName(filePath)}\{newFileName}";
                             File.Move(filePath, newFileNamePath);

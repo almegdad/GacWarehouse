@@ -16,8 +16,10 @@ namespace GacWarehouse.TaskScheduler.Helpers
 
         public OrderApi()
         {
-            var username = "CustomerB";
-            var password = "password123";
+            var settings = new SettingsHelper();
+
+            var username = settings.Username;
+            var password = settings.Password;
 
             var authBytes = System.Text.Encoding.UTF8.GetBytes($"{username}:{password}");
             _authToken = Convert.ToBase64String(authBytes);
